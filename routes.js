@@ -12,7 +12,7 @@ module.exports = app => {
     .post((req, res, next) => {
       let e = new Entry(req.body);
       e.save((err, entry) => {
-        if (err) { console.log(err); return next(err); }
+        if (err) { return next(err); }
         res.json(entry);
       })
     });
