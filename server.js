@@ -23,12 +23,8 @@ let Entry = require('./entry');
 // initialize app
 let app = exp();
 
-// Setup Routes
-let routes = require('./routes');
-routes(app);
-
 /**
- * Configure Middleware
+ * Preflight Middleware
  */
 // CORS
 app.use(function(req, res, next) {
@@ -47,6 +43,15 @@ app.use(function(req, res, next) {
 // parse JSON in the body of requests
 app.use(bp.json());
 
+/**
+ * Routes
+ */
+let routes = require('./routes');
+routes(app);
+
+/**
+ * Postflight Middleware
+ */
 // handle 404's
 app.use((req, res, next) => {
   next(new RouteNotFoundError(`You have tried to access an API endpoint (${req.url}) that does not exist.`));
